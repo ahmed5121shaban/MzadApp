@@ -4,11 +4,11 @@ using MzadService.Infrastructure;
 
 namespace MzadService.Services
 {
-    public class Reposetory<T> : IReposetory<T> where T : class
+    public class Repository<T> : IRepository<T> where T : class
     {
         private readonly ApplicationDbContext _context;
         private readonly DbSet<T> _entity;
-        public Reposetory(ApplicationDbContext context)
+        public Repository(ApplicationDbContext context)
         {
             _context = context;
             _entity = _context.Set<T>();
@@ -27,7 +27,6 @@ namespace MzadService.Services
         public async Task<T> Update(T entity)
         {
             _entity.Update(entity);
-            await _context.SaveChangesAsync();
             return entity;
         }
 
@@ -38,13 +37,11 @@ namespace MzadService.Services
                 throw new KeyNotFoundException("Entity not found");
 
             _entity.Remove(entity);
-            await _context.SaveChangesAsync();
         }
 
         public async Task<T> Add(T entity)
         {
             await _entity.AddAsync(entity);
-            await _context.SaveChangesAsync();
             return entity;
         }
 

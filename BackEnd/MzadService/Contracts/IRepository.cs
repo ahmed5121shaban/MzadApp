@@ -1,6 +1,6 @@
 ﻿namespace MzadService.Contracts
 {
-    public interface IReposetory <T>
+    public interface IRepository <T>
     {
         Task<T> GetById (Guid id);
         Task<IEnumerable<T>> GetAll ();
