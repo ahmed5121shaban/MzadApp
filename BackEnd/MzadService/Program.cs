@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using MzadService.Data.DataSeeding;
 using MzadService.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 var app = builder.Build();
 
+// Initialize and seed the database
+DbInitializer.InitializeDbAsync(app).Wait();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -24,8 +28,14 @@ if (app.Environment.IsDevelopment())
 }
 
 // app.UseHttpsRedirection();
+app.UseCors(opt =>
+{
+    opt.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+});
 
 app.UseAuthorization();
+
+app.UseAuthentication();
 
 app.MapControllers();
 
