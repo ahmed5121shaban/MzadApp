@@ -1,9 +1,10 @@
 ﻿using MzadService.Data.DTOs.Hourse;
-using MzadService.Data.Enums;
+using MzadService.Entities;
+using MzadService.Enums;
 
 namespace MzadService.Data.DTOs.Mzad
 {
-    public class UpdateMzadDto
+    public class MzadDto
     {
         public Guid Id { get; set; }
         public int ReservePrice { get; set; } = 0;
@@ -14,6 +15,6 @@ namespace MzadService.Data.DTOs.Mzad
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime MzadEnd { get; set; } = DateTime.UtcNow;
         public Status Status { get; set; }
-        public UpdateHourseDto Horse { get; set; }
+        public HourseDto Horse { get; set; }
     }
 }

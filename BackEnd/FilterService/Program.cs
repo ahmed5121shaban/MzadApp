@@ -1,5 +1,8 @@
-var builder = WebApplication.CreateBuilder(args);
+using FilterService.Extentions;
 
+var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("MongoDB");
+var dbName = builder.Configuration.GetValue<string>("MongoDbSettings:DatabaseName");
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -19,5 +22,8 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
+
+await MongoDbInit.InitMongoDb(dbName, connectionString);
+await MongoDbInit.MongoIndexes();
 
 app.Run();

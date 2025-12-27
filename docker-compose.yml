@@ -8,3 +8,12 @@ services:
     - 5454:5432 
    environment:
      POSTGRES_PASSWORD: password
+  mongo:
+   image: mongo
+   restart: always
+   container_name: mongo
+   ports:
+    - 5455:27017
+   environment:
+    - MONGO_INITDB_ROOT_USERNAME= ahmed
+    - MONGO_INITDB_ROOT_PASSWORD= password

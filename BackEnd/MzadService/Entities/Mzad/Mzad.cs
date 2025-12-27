@@ -1,4 +1,4 @@
-﻿using MzadService.Enums;
+﻿using MzadService.Data.Enums;
 
 namespace MzadService.Entities
 {

@@ -1,5 +1,5 @@
 ﻿using MzadService.Data.DTOs.Hourse;
-using MzadService.Enums;
+using MzadService.Data.Enums;
 
 namespace MzadService.Data.DTOs.Mzad
 {

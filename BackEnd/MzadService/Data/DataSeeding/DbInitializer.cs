@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MzadService.Data.Enums;
 using MzadService.Entities;
-using MzadService.Enums;
 using MzadService.Infrastructure;
 using System.Threading.Tasks;
 

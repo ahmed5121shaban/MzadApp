@@ -1,9 +1,10 @@
-﻿using MzadService.Data.DTOs.Hourse;
-using MzadService.Data.Enums;
+﻿using MongoDB.Entities;
+using MzadService.Enums;
+using System.Net.NetworkInformation;
 
-namespace MzadService.Data.DTOs.Mzad
+namespace FilterService.Entities
 {
-    public class UpdateMzadDto
+    public class Mzad : Entity
     {
         public Guid Id { get; set; }
         public int ReservePrice { get; set; } = 0;
@@ -14,6 +15,6 @@ namespace MzadService.Data.DTOs.Mzad
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime MzadEnd { get; set; } = DateTime.UtcNow;
         public Status Status { get; set; }
-        public UpdateHourseDto Horse { get; set; }
+
     }
 }
