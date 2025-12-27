@@ -9,14 +9,14 @@ namespace MzadService.Services
     {
         private readonly ApplicationDbContext _context;
 
-        public IRepository<Mzad> Mzads { get; }
+        public IRepository<Entities.Mzad> Mzads { get; }
         public IRepository<Horse> Horses { get; }
 
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
 
-            Mzads = new Repository<Mzad>(_context);
+            Mzads = new Repository<Entities.Mzad>(_context);
             Horses = new Repository<Horse>(_context);
         }
 
