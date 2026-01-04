@@ -10,7 +10,8 @@ namespace MzadService.Infrastructure
             
         }
 
-        DbSet<Mzad> Mzads { get; set; }
-        DbSet<Horse> Horses { get; set; }
+        public DbSet<Mzad> Mzads { get; set; }
+        public DbSet<Horse> Horses { get; set; }
+
     }
 }

@@ -27,19 +27,28 @@ namespace MzadService.Data.DataSeeding
         {
             await context.Database.MigrateAsync();
             // Look for any mzads.
-            var data = await context.FindAsync<Mzad>();
-            if (!(data is null))
+            try
             {
-                return;   // DB has been seeded
+                
+                var data = await context.Mzads.AnyAsync();
+                if (data)
+                {
+                    return;   // DB has been seeded
+                }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error with seeding the data ...{ex.Message}");
+            }
+            
             var mzads = new Mzad[]
             {
                 new Mzad
                 {
                     Seller = "Ahmed Ali",
                     ReservePrice = 1500,
-                    CreatedAt = DateTime.Now.AddDays(-10),
-                    MzadEnd = DateTime.Now.AddDays(-3),
+                    CreatedAt = DateTime.UtcNow.AddDays(-10),
+                    MzadEnd = DateTime.UtcNow.AddDays(-3),
                     Status = Status.Finished,
                     Horse = new Horse
                     {
@@ -60,8 +69,8 @@ namespace MzadService.Data.DataSeeding
                 {
                     Seller = "Youssef Kamal",
                     ReservePrice = 2500,
-                    CreatedAt = DateTime.Now.AddDays(-5),
-                    MzadEnd = DateTime.Now.AddDays(2),
+                    CreatedAt = DateTime.UtcNow.AddDays(-5),
+                    MzadEnd = DateTime.UtcNow.AddDays(2),
                     Status = Status.Live,
                     Horse = new Horse
                     {
@@ -82,8 +91,8 @@ namespace MzadService.Data.DataSeeding
                 {
                     Seller = "Khaled Omar",
                     ReservePrice = 900,
-                    CreatedAt = DateTime.Now.AddDays(-2),
-                    MzadEnd = DateTime.Now.AddDays(5),
+                    CreatedAt = DateTime.UtcNow.AddDays(-2),
+                    MzadEnd = DateTime.UtcNow.AddDays(5),
                     Status = Status.ReserveNotMet,
                     Horse = new Horse
                     {
@@ -104,8 +113,8 @@ namespace MzadService.Data.DataSeeding
                 {
                     Seller = "Mahmoud Salah",
                     ReservePrice = 3200,
-                    CreatedAt = DateTime.Now.AddDays(-15),
-                    MzadEnd = DateTime.Now.AddDays(-1),
+                    CreatedAt = DateTime.UtcNow.AddDays(-15),
+                    MzadEnd = DateTime.UtcNow.AddDays(-1),
                     Status = Status.Finished,
                     Horse = new Horse
                     {
@@ -124,9 +133,17 @@ namespace MzadService.Data.DataSeeding
             };
             foreach (Mzad m in mzads)
             {
-                await context.AddAsync<Mzad>(m);
+                await context.Mzads.AddAsync(m);
             }
-            context.SaveChanges();
+            try
+            {
+                await context.SaveChangesAsync();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error with seeding the data ...{ex.Message}");
+            }
+            
         }
     }
 }

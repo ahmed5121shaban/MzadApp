@@ -1,13 +1,15 @@
-version: "1.0"
+version: "4.0"
 services:
   postgres:
    image: postgres
    restart: always
    container_name: postgres
    ports:
-    - 5454:5432 
+    - 5454:5432
    environment:
+     POSTGRES_USER: ahmed
      POSTGRES_PASSWORD: password
+     POSTGRES_DB: mzad_db
   mongo:
    image: mongo
    restart: always
