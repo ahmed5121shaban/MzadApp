@@ -22,5 +22,21 @@ namespace FilterService.Controllers.Mzad
             if(result is null) return NotFound();
             return Ok(result);
         }
+
+        [HttpDelete]
+        public async Task<ActionResult> DeleteAllAsync()
+        {
+            try
+            {
+                await _mzadService.DeleteAllAssync();
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"{ex.Message}");
+                return BadRequest(new { message = ex.Message });
+            }
+            
+        }
     }
 }

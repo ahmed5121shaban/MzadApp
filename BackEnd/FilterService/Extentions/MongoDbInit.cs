@@ -47,7 +47,7 @@ namespace FilterService.Extentions
                 var mzads = JsonSerializer.Deserialize<List<Mzad>>(mzadData);
                 if (mzads != null && mzads.Count > 0)
                 {
-                    await DB.SaveAsync<Mzad>(mzads);
+                    await DB.SaveAsync(mzads);
                 }
             }
             catch(Exception ex)

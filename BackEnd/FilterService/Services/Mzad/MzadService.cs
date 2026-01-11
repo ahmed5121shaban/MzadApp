@@ -1,6 +1,7 @@
 ﻿using FilterService.Contracts;
 using FilterService.Entities;
 using Mapster;
+using Microsoft.EntityFrameworkCore;
 using MongoDB.Entities;
 using MzadService.Data.DTOs.Mzad;
 using System.Threading.Tasks;
@@ -12,20 +13,35 @@ namespace FilterService.Services
         public MzadService()
         {}
 
+        public async Task DeleteAllAssync()
+        {
+            try
+            {
+                var mzads = await DB.Queryable<Mzad>().ToListAsync();
+                if (mzads.Count < 1) return;
+
+                foreach (var mzad in mzads)
+                {
+                    await DB.DeleteAsync<Mzad>(mzad.ID);
+                }
+            }catch(Exception ex)
+            {
+                Console.WriteLine($"Error: Delete All Mzad Filter documents: {ex.Message}");
+            }
+        }
+
         /// <summary>
         /// Search in Mzad Document with Search term
         /// </summary>
         /// <param name="search"></param>
         /// <returns></returns>
-        public async Task<List<MzadDto>> SearchMzad(string search)
+        public async Task<List<Mzad>> SearchMzad(string search)
         {
             var query =  DB.Find<Mzad>().Sort(s => s.Descending(m=> m.CreatedAt));
             if (!string.IsNullOrEmpty(search))
                 query.Match(Search.Full, search).SortByTextScore();
 
-            var result = await query.ExecuteAsync();
-
-            return result.Adapt<List<MzadDto>>();
+            return await query.ExecuteAsync();
         }
     }
 }
