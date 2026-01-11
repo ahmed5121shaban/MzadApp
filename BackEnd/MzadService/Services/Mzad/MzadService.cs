@@ -4,7 +4,7 @@ using MzadService.Contracts.Mzad;
 using MzadService.Data.DTOs.Mzad;
 using MzadService.Entities;
 
-namespace MzadService.Services.Mzad
+namespace MzadService.Services
 {
     public class MzadService : IMzadService
     {
@@ -15,7 +15,7 @@ namespace MzadService.Services.Mzad
         }
         public async Task<MzadDto> Create(MzadDto mzadDto)
         {
-            var result = mzadDto.Adapt<Entities.Mzad>();
+            var result = mzadDto.Adapt<Mzad>();
             await _unitOfWork.SaveAsync();
 
             return result.Adapt<MzadDto>();
@@ -36,7 +36,7 @@ namespace MzadService.Services.Mzad
 
         public async Task<MzadDto> Update(MzadDto mzadDto)
         {
-            var mappedData = mzadDto.Adapt<Entities.Mzad>();
+            var mappedData = mzadDto.Adapt<Mzad>();
             await _unitOfWork.Mzads.Update(mappedData);
 
             return mzadDto;

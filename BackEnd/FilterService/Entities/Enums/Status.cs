@@ -1,4 +1,4 @@
-﻿namespace MzadService.Enums
+﻿namespace FilterService.Entities.Enums
 {
     public enum Status
     {

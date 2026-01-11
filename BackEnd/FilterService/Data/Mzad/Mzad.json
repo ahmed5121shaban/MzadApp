@@ -1,0 +1,50 @@
+[
+  {
+    "id": "019b8a9a-9be5-7970-bd58-be484abd249f",
+    "reservePrice": 1500,
+    "seller": "Ahmed Ali",
+    "winner": "Mohamed Hassan",
+    "soldAmount": 1800,
+    "currentHighTender": 566,
+    "createdAt": "2025-12-25T20:02:24.417389Z",
+    "mzadEnd": "2026-01-01T20:02:24.449426Z",
+    "status": 1,
+    "horse": null
+  },
+  {
+    "id": "019b8a9a-9fff-7b99-8a78-8009de434cd7",
+    "reservePrice": 2500,
+    "seller": "Youssef Kamal",
+    "winner": null,
+    "soldAmount": null,
+    "currentHighTender": 4000,
+    "createdAt": "2025-12-30T20:02:24.492364Z",
+    "mzadEnd": "2026-01-06T20:02:24.53Z",
+    "status": 0,
+    "horse": null
+  },
+  {
+    "id": "019b8a9a-a4ed-75f3-9af1-82317afe79ee",
+    "reservePrice": 900,
+    "seller": "Khaled Omar",
+    "winner": null,
+    "soldAmount": null,
+    "currentHighTender": 450,
+    "createdAt": "2026-01-02T20:02:24.572838Z",
+    "mzadEnd": "2026-01-09T20:02:24.606227Z",
+    "status": 2,
+    "horse": null
+  },
+  {
+    "id": "019b8a9a-ad33-7847-8b52-a7f3fde81d09",
+    "reservePrice": 3200,
+    "seller": "Mahmoud Salah",
+    "winner": "Omar Nabil",
+    "soldAmount": 3500,
+    "currentHighTender": 900,
+    "createdAt": "2025-12-20T20:02:24.648441Z",
+    "mzadEnd": "2026-01-03T20:02:24.688094Z",
+    "status": 1,
+    "horse": null
+  }
+]

@@ -1,12 +1,11 @@
-﻿using MongoDB.Entities;
-using MzadService.Enums;
+﻿using FilterService.Entities.Enums;
+using MongoDB.Entities;
 using System.Net.NetworkInformation;
 
 namespace FilterService.Entities
 {
     public class Mzad : Entity
     {
-        public Guid Id { get; set; }
         public int ReservePrice { get; set; } = 0;
         public string Seller { get; set; }
         public string Winner { get; set; }

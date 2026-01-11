@@ -1,4 +1,6 @@
+using FilterService.Contracts;
 using FilterService.Extentions;
+using FilterService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("MongoDB");
@@ -8,6 +10,9 @@ var dbName = builder.Configuration.GetValue<string>("MongoDbSettings:DatabaseNam
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+// Services
+builder.Services.AddScoped<IMzadService, FilterService.Services.MzadService>();
 
 var app = builder.Build();
 
