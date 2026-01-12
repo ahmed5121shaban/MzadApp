@@ -2,7 +2,6 @@
 using MongoDB.Driver;
 using MongoDB.Entities;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace FilterService.Extentions
 {

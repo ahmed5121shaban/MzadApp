@@ -17,13 +17,7 @@ namespace FilterService.Services
         {
             try
             {
-                var mzads = await DB.Queryable<Mzad>().ToListAsync();
-                if (mzads.Count < 1) return;
-
-                foreach (var mzad in mzads)
-                {
-                    await DB.DeleteAsync<Mzad>(mzad.ID);
-                }
+                await DB.DropCollectionAsync<Mzad>();
             }catch(Exception ex)
             {
                 Console.WriteLine($"Error: Delete All Mzad Filter documents: {ex.Message}");
