@@ -34,10 +34,15 @@ namespace MzadService.Application.Services.Mzad
         => (await _unitOfWork.Mzads.GetById(id)).Adapt<MzadDto>();
         
 
-        public async Task<MzadDto> Update(MzadDto mzadDto)
+        public async Task<UpdateMzadDto> Update(UpdateMzadDto mzadDto)
         {
-            var mappedData = mzadDto.Adapt<Entities.Mzad>();
-            await _unitOfWork.Mzads.Update(mappedData);
+            var mzad = await _unitOfWork.Mzads. GetById(mzadDto.Id);
+
+            if (mzad is null)
+                throw new Exception("Mzad not found");
+
+            mzadDto.Adapt(mzad);
+            await _unitOfWork.Mzads.SaveChangesAsync();
 
             return mzadDto;
         }

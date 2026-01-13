@@ -3,7 +3,7 @@ using MzadService.Application.DTOs.Mzad;
 
 namespace MzadService.Application.Contracts.Mzad
 {
-    public interface IMzadService : IBaseService<MzadDto>
+    public interface IMzadService : IBaseService<MzadDto, UpdateMzadDto>
     {
     }
 }

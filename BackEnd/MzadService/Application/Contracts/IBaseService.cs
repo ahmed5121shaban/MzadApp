@@ -2,12 +2,12 @@
 
 namespace MzadService.Application.Contracts
 {
-    public interface IBaseService<T>
+    public interface IBaseService<T,TUpdate>
     {
         Task<T> Create(T mzadDto);
         Task<T> GetById(Guid id);
         Task<IEnumerable<T>> GetAll();
-        Task<T> Update(T mzadDto);
+        Task<TUpdate> Update(TUpdate mzadDto);
         Task Delete(Guid id);
     }
 }

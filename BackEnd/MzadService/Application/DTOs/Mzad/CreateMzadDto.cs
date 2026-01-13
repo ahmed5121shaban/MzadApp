@@ -11,7 +11,8 @@ namespace MzadService.Application.DTOs.Mzad
         public int? SoldAmount { get; set; }
         public int? CurrentHighTender { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public DateTime MzadEnd { get; set; } = DateTime.UtcNow;
+        public DateTime UpdatedAt { get; set; }
+        public DateTime MzadEnd { get; set; }
         public Status Status { get; set; }
         public CreateMzadDto Horse { get; set; }
     }

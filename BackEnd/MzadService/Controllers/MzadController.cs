@@ -34,7 +34,7 @@ namespace MzadService.Controllers
 
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, [FromBody] MzadDto mzadDto)
+        public async Task<IActionResult> Update(Guid id, [FromBody] UpdateMzadDto mzadDto)
         {
             if (id != mzadDto.Id)
             {

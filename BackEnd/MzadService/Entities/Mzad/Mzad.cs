@@ -11,6 +11,7 @@ namespace MzadService.Entities
         public int? SoldAmount { get; set; }
         public int? CurrentHighTender { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
         public DateTime MzadEnd { get; set; } = DateTime.UtcNow;
         public Status Status { get; set; }
         public Horse Horse { get; set; }
