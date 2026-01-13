@@ -1,10 +1,10 @@
-﻿using MzadService.Entities.Enums;
+﻿using MzadService.Entities;
+using MzadService.Entities.Enums;
 
-namespace MzadService.Entities
+namespace MzadService.Application.DTOs.Mzad
 {
-    public class Mzad
+    public class CreateMzadDto
     {
-        public Guid Id { get; set; }
         public int ReservePrice { get; set; } = 0;
         public string Seller { get; set; }
         public string Winner { get; set; }
@@ -13,6 +13,6 @@ namespace MzadService.Entities
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime MzadEnd { get; set; } = DateTime.UtcNow;
         public Status Status { get; set; }
-        public Horse Horse { get; set; }
+        public CreateMzadDto Horse { get; set; }
     }
 }

@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <Folder Include="Data\Mzad\" />
+    <Folder Include="Infrastructure\Configuration\" />
   </ItemGroup>
 
 </Project>

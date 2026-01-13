@@ -1,4 +1,5 @@
-﻿using FilterService.Contracts;
+﻿using FilterService.Application.Contracts.Mzad;
+using FilterService.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,10 +16,10 @@ namespace FilterService.Controllers.Mzad
         }
 
         [HttpGet]
-        [Route("search")]
-        public async Task<ActionResult> Search([FromQuery] string searchTerm, [FromQuery] int pageSize, [FromQuery] int pageNumber)
+        [Route("filter")]
+        public async Task<ActionResult> Search([FromQuery] FilterParams filterParams)
         {
-            var result = await _mzadService.SearchMzad(searchTerm, pageSize, pageNumber);
+            var result = await _mzadService.SearchMzad(filterParams);
             if(result is null) return NotFound();
             return Ok(result);
         }

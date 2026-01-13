@@ -1,6 +1,5 @@
-using FilterService.Contracts;
+using FilterService.Application.Contracts.Mzad;
 using FilterService.Extentions;
-using FilterService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("MongoDB");
@@ -12,7 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 // Services
-builder.Services.AddScoped<IMzadService, FilterService.Services.MzadService>();
+builder.Services.AddScoped<IMzadService, FilterService.Application.Services.Mzad.MzadService>();
 
 var app = builder.Build();
 

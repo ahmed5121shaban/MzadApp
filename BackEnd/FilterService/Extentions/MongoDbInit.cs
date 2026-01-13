@@ -23,6 +23,8 @@ namespace FilterService.Extentions
             {
                 await DB.Index<Mzad>()
                 .Key(m => m.Seller, KeyType.Text)
+                .Key(m => m.Winner, KeyType.Text)
+                .Key(m => m.ID, KeyType.Text)
                 .Key(m => m.CreatedAt, KeyType.Descending)
                 .Key(m => m.ReservePrice, KeyType.Descending)
                 .Key(m => m.Status, KeyType.Descending)

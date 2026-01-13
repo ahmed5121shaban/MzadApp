@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MzadService.Contracts.Mzad;
-using MzadService.Data.DTOs.Mzad;
+using MzadService.Application.Contracts.Mzad;
+using MzadService.Application.DTOs.Mzad;
 
 namespace MzadService.Controllers
 {

@@ -1,15 +1,15 @@
 using Microsoft.EntityFrameworkCore;
-using MzadService.Contracts;
-using MzadService.Contracts.Mzad;
+using MzadService.Application.Contracts;
+using MzadService.Application.Contracts.Mzad;
+using MzadService.Application.Services;
 using MzadService.Data.DataSeeding;
 using MzadService.Infrastructure;
-using MzadService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 
 // Add services to the container.
-builder.Services.AddScoped<IMzadService, MzadService.Services.MzadService>();
+builder.Services.AddScoped<IMzadService, MzadService.Application.Services.Mzad.MzadService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddControllers();
