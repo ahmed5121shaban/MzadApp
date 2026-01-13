@@ -1,5 +1,6 @@
 using FilterService.Application.Contracts.Mzad;
 using FilterService.Extentions;
+using FilterService.Infrastructure.HttpClients;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("MongoDB");
@@ -12,6 +13,9 @@ builder.Services.AddOpenApi();
 
 // Services
 builder.Services.AddScoped<IMzadService, FilterService.Application.Services.Mzad.MzadService>();
+
+// Http Clients
+builder.Services.AddHttpClient<MzadServiceClient>();
 
 var app = builder.Build();
 
@@ -28,6 +32,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 await MongoDbInit.InitMongoDb(dbName, connectionString);
-await MongoDbInit.MongoIndexes();
+await MongoDbInit.MongoIndexes(app.Services);
 
 app.Run();

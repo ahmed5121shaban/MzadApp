@@ -1,4 +1,5 @@
 ﻿using FilterService.Entities;
+using FilterService.Infrastructure.HttpClients;
 using MongoDB.Driver;
 using MongoDB.Entities;
 using System.Text.Json;
@@ -17,7 +18,7 @@ namespace FilterService.Extentions
                 Console.WriteLine($"Error in MongoDB Initialization: {ex.Message}");
             }
         }
-        public static async Task MongoIndexes()
+        public static async Task MongoIndexes(IServiceProvider serviceProvider)
         {
             try
             {
@@ -35,21 +36,18 @@ namespace FilterService.Extentions
                 Console.WriteLine($"Error in MongoDB Indexes Creation: {ex.Message}");
             }
             
-            await SeedingDataAsync();
+            await SeedingDataAsync(serviceProvider);
         }
-        private static async Task SeedingDataAsync()
+        private static async Task SeedingDataAsync(IServiceProvider serviceProvider)
         {
             try
             {
-                long count = await DB.CountAsync<Mzad>();
-                if (count > 0)
+                using var scope = serviceProvider.CreateScope();
+                var httpClient = scope.ServiceProvider.GetRequiredService<MzadServiceClient>();
+                var mzads =  await httpClient.GetMzadDataAsync();
+                if(mzads is null || mzads.Count == 0)
                     return;
-                var mzadData = await File.ReadAllTextAsync("Data/Mzad/Mzad.json");
-                var mzads = JsonSerializer.Deserialize<List<Mzad>>(mzadData);
-                if (mzads != null && mzads.Count > 0)
-                {
-                    await DB.SaveAsync(mzads);
-                }
+                await DB.SaveAsync(mzads);
             }
             catch(Exception ex)
             {
