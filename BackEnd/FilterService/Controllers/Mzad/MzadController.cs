@@ -16,9 +16,9 @@ namespace FilterService.Controllers.Mzad
 
         [HttpGet]
         [Route("search")]
-        public async Task<ActionResult> Search([FromQuery] string search)
+        public async Task<ActionResult> Search([FromQuery] string searchTerm, [FromQuery] int pageSize, [FromQuery] int pageNumber)
         {
-            var result = await _mzadService.SearchMzad(search);
+            var result = await _mzadService.SearchMzad(searchTerm, pageSize, pageNumber);
             if(result is null) return NotFound();
             return Ok(result);
         }

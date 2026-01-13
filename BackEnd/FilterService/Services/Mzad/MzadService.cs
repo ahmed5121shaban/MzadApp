@@ -1,4 +1,5 @@
 ﻿using FilterService.Contracts;
+using FilterService.Data;
 using FilterService.Entities;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
@@ -29,13 +30,20 @@ namespace FilterService.Services
         /// </summary>
         /// <param name="search"></param>
         /// <returns></returns>
-        public async Task<List<Mzad>> SearchMzad(string search)
+        public async Task<PagedResponse<IEnumerable<Mzad>>> SearchMzad(string search,int pageSize = 10, int pageNumber = 1)
         {
-            var query =  DB.Find<Mzad>().Sort(s => s.Descending(m=> m.CreatedAt));
+            var query =  DB.PagedSearch<Mzad>().Sort(s => s.Descending(m=> m.CreatedAt));
             if (!string.IsNullOrEmpty(search))
                 query.Match(Search.Full, search).SortByTextScore();
-
-            return await query.ExecuteAsync();
+            query.PageNumber(pageNumber);
+            query.PageSize(pageSize);
+            var result = await query.ExecuteAsync();
+            return new PagedResponse<IEnumerable<Mzad>>
+            {
+                TotalCount = result.TotalCount,
+                PageCount = result.PageCount,
+                Results = result.Results
+            };
         }
     }
 }
