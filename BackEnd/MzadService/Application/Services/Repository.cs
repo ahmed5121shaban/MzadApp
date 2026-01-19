@@ -49,5 +49,10 @@ namespace MzadService.Application.Services
         {
             return _context.SaveChangesAsync();
         }
+
+        public async Task<IQueryable<T>> GetAllAsyncAsQueryable()
+        {
+            return _entity.AsQueryable();
+        }
     }
 }

@@ -14,18 +14,30 @@ namespace MzadService.Controllers
         {
             _mzadService = mzadService;
         }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
             var mzad = await _mzadService.GetById(id);
             return Ok(mzad);
         }
+
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] string lastUpdateDate = null)
         {
-            var mzads = await _mzadService.GetAll();
-            return Ok(mzads);
+            if (string.IsNullOrEmpty(lastUpdateDate)) 
+            {
+                var mzads = await _mzadService.GetAll();
+                return Ok(mzads);
+            } 
+            else 
+            {
+                var mzads = await _mzadService.GetAllWithLastUpdatedDate(lastUpdateDate);
+                return Ok(mzads);
+            } 
+            
         }
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] MzadDto mzadDto)
         {
@@ -33,8 +45,9 @@ namespace MzadService.Controllers
             return CreatedAtAction(nameof(GetById), new { id = createdMzad.Id }, createdMzad);
 
         }
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, [FromBody] UpdateMzadDto mzadDto)
+
+        [HttpPut]
+        public async Task<IActionResult> Update([FromQuery] Guid id, [FromBody] UpdateMzadDto mzadDto)
         {
             if (id != mzadDto.Id)
             {
@@ -43,6 +56,7 @@ namespace MzadService.Controllers
             var updatedMzad = await _mzadService.Update(mzadDto);
             return Ok(updatedMzad);
         }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {

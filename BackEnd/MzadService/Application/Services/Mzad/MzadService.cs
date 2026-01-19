@@ -28,7 +28,14 @@ namespace MzadService.Application.Services.Mzad
 
         public async Task<IEnumerable<MzadDto>> GetAll()
         => (await _unitOfWork.Mzads.GetAll()).Adapt<IEnumerable<MzadDto>>();
-        
+
+        public async Task<IEnumerable<MzadDto>> GetAllWithLastUpdatedDate(string lastUpdateDate)
+        {
+            var query = (await _unitOfWork.Mzads.GetAllAsyncAsQueryable())
+                .Where(m => m.UpdatedAt > DateTime.Parse(lastUpdateDate).ToUniversalTime());
+
+            return query.Adapt<IEnumerable<MzadDto>>();
+        }
 
         public async Task<MzadDto> GetById(Guid id)
         => (await _unitOfWork.Mzads.GetById(id)).Adapt<MzadDto>();

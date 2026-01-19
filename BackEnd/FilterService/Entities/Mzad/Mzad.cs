@@ -23,6 +23,8 @@ namespace FilterService.Entities
         public DateTime MzadEnd { get; set; } = DateTime.UtcNow;
         [JsonPropertyName("status")]
         public Status Status { get; set; }
+        [JsonPropertyName("updatedAt")]
+        public DateTime UpdatedAt { get; set; }
 
     }
 }
