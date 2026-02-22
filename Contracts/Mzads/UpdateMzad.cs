@@ -1,0 +1,22 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Net.NetworkInformation;
+using System.Text;
+
+namespace Contracts.Mzads
+{
+    public class UpdateMzad
+    {
+        public Guid Id { get; set; }
+        public int ReservePrice { get; set; } = 0;
+        public string Seller { get; set; }
+        public string Winner { get; set; }
+        public int? SoldAmount { get; set; }
+        public int? CurrentHighTender { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
+        public DateTime MzadEnd { get; set; }
+        public Status Status { get; set; }
+        public HourseDto Horse { get; set; }
+    }
+}

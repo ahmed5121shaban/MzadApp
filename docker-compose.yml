@@ -19,3 +19,10 @@ services:
    environment:
     - MONGO_INITDB_ROOT_USERNAME=ahmed
     - MONGO_INITDB_ROOT_PASSWORD=password
+  rabbitmq:
+   image: rabbitmq:3-management
+   restart: always
+   container_name: rabbitmq
+   ports:
+    - 5672:5672
+    - 15672:15672

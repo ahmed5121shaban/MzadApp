@@ -1,6 +1,7 @@
 using FilterService.Application.Contracts.Mzad;
 using FilterService.Extentions;
 using FilterService.Infrastructure.HttpClients;
+using MassTransit;
 using Polly;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,15 @@ var dbName = builder.Configuration.GetValue<string>("MongoDbSettings:DatabaseNam
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+// MassTransit and RabbitMQ configuration
+builder.Services.AddMassTransit(x =>
+{
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.ConfigureEndpoints(context);
+    });
+});
 
 // Services
 builder.Services.AddScoped<IMzadService, FilterService.Application.Services.Mzad.MzadService>();
