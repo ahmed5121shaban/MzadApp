@@ -23,8 +23,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 var app = builder.Build();
 
-// Initialize and seed the database
-DbInitializer.InitializeDbAsync(app).Wait();
+// Seed the database on application startup
+app.Lifetime.ApplicationStarted.Register(async () =>
+{
+    // Initialize and seed the database
+    await DbInitializer.InitializeDbAsync(app);
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

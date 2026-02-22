@@ -1,6 +1,7 @@
 using FilterService.Application.Contracts.Mzad;
 using FilterService.Extentions;
 using FilterService.Infrastructure.HttpClients;
+using Polly;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("MongoDB");
@@ -31,7 +32,19 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-await MongoDbInit.InitMongoDb(dbName, connectionString);
-await MongoDbInit.MongoIndexes(app.Services);
+// Initialize MongoDB and create indexes on application startup
+app.Lifetime.ApplicationStarted.Register(async () =>
+{
+    var logger = app.Services.GetRequiredService<ILogger<Program>>();
+    logger.LogInformation("Application started at {Time}", DateTime.UtcNow);
+    await MongoDbInit.InitMongoDb(dbName, connectionString);
+    await MongoDbInit.MongoIndexes(app.Services);
+});
+
 
 app.Run();
+
+// Polly Policy to retry failed HTTP requests to Mzad API every 5 seconds until it succeeds
+static IAsyncPolicy<HttpResponseMessage> AsyncPolicy()
+    => Policy.HandleResult<HttpResponseMessage>(r => !r.IsSuccessStatusCode)
+        .RetryForeverAsync( retryAttempt => TimeSpan.FromSeconds(5));
