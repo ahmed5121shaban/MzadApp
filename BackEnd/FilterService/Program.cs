@@ -16,7 +16,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddScoped<IMzadService, FilterService.Application.Services.Mzad.MzadService>();
 
 // Http Clients
-builder.Services.AddHttpClient<MzadServiceClient>();
+builder.Services.AddHttpClient<MzadServiceClient>().AddPolicyHandler(AsyncPolicy());
 
 var app = builder.Build();
 
