@@ -1,4 +1,6 @@
-﻿using Mapster;
+﻿using Contracts.Mzads;
+using Mapster;
+using MassTransit;
 using MzadService.Application.Contracts;
 using MzadService.Application.Contracts.Mzad;
 using MzadService.Application.DTOs.Mzad;
@@ -9,16 +11,19 @@ namespace MzadService.Application.Services.Mzad
     public class MzadService : IMzadService
     {
         private readonly IUnitOfWork _unitOfWork;
-        public MzadService(IUnitOfWork unitOfWork)
+        private readonly IPublishEndpoint _publishEndPoint;
+        public MzadService(IUnitOfWork unitOfWork, IPublishEndpoint publishEndPoint)
         {
             _unitOfWork = unitOfWork;
+            _publishEndPoint = publishEndPoint;
         }
         public async Task<MzadDto> Create(MzadDto mzadDto)
         {
             var result = mzadDto.Adapt<Entities.Mzad>();
             await _unitOfWork.SaveAsync();
-
-            return result.Adapt<MzadDto>();
+            var mzad = result.Adapt<MzadDto>();
+            await _publishEndPoint.Publish(mzad.Adapt<CreatedMzad>());
+            return mzad;
         }
 
         public async Task Delete(Guid id)
