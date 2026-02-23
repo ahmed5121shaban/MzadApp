@@ -1,4 +1,5 @@
 using FilterService.Application.Contracts.Mzad;
+using FilterService.Consumer;
 using FilterService.Extentions;
 using FilterService.Infrastructure.HttpClients;
 using MassTransit;
@@ -16,6 +17,8 @@ builder.Services.AddOpenApi();
 // MassTransit and RabbitMQ configuration
 builder.Services.AddMassTransit(x =>
 {
+    x.AddConsumersFromNamespaceContaining<MzadCreatedConsumer>();
+    x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("Filter",false));
     x.UsingRabbitMq((context, cfg) =>
     {
         cfg.ConfigureEndpoints(context);

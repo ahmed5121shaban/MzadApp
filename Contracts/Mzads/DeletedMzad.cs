@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Contracts.Mzads
 {
-    public class DeleteMzad
+    public class DeletedMzad
     {
         public Guid Id { get; set; }
     }
