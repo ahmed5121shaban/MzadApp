@@ -18,7 +18,7 @@ namespace FilterService.Application.Services.Mzad
         /// <remarks>If an error occurs during the deletion, the exception is caught and logged to the
         /// console. The method does not throw on failure.</remarks>
         /// <returns>A task that represents the asynchronous delete operation.</returns>
-        public async Task DeleteAllAssync()
+        public async Task DeleteAllAsync()
         {
             try
             {
@@ -42,7 +42,7 @@ namespace FilterService.Application.Services.Mzad
             MatchSearchText(query, filterParams);
 
             // Apply Sorting
-            ApplySorting(query, filterParams);
+            query = ApplySorting(query, filterParams);
 
             // Apply Pagination
             query.PageNumber(filterParams.PageNumber);
@@ -70,7 +70,7 @@ namespace FilterService.Application.Services.Mzad
             if (!string.IsNullOrEmpty(filterParams.Seller))
                 query.Match(m => m.Seller == filterParams.Seller);
         }
-        private void ApplySorting(PagedSearch<Entities.Mzad, Entities.Mzad> query, FilterParams filterParams)
+        private PagedSearch<FilterService.Entities.Mzad, FilterService.Entities.Mzad> ApplySorting(PagedSearch<Entities.Mzad, Entities.Mzad> query, FilterParams filterParams)
         {
             query = filterParams.OrderBy switch
             {
@@ -85,8 +85,10 @@ namespace FilterService.Application.Services.Mzad
                 "finished" => query.Match(m => m.MzadEnd < DateTime.UtcNow),
                 "endingSoon" => query.Match(m => m.MzadEnd < DateTime.UtcNow.AddDays(1)
                     && m.MzadEnd > DateTime.UtcNow),
-                _ => query.Match(m => m.MzadEnd > DateTime.UtcNow)
+                _ => query.Match(m => (m.MzadEnd > DateTime.UtcNow) || (m.MzadEnd < DateTime.UtcNow))
             };
+
+            return query;
         }
         #endregion
     }

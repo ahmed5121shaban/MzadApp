@@ -29,7 +29,7 @@ namespace FilterService.Controllers.Mzad
         {
             try
             {
-                await _mzadService.DeleteAllAssync();
+                await _mzadService.DeleteAllAsync();
                 return NoContent();
             }
             catch (Exception ex)

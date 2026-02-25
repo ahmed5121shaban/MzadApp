@@ -22,7 +22,9 @@ namespace MzadService.Application.Services.Mzad
             var result = mzadDto.Adapt<Entities.Mzad>();
             await _unitOfWork.SaveAsync();
             var mzad = result.Adapt<MzadDto>();
+            // Publish the CreatedMzad event
             await _publishEndPoint.Publish(mzad.Adapt<CreatedMzad>());
+
             return mzad;
         }
 

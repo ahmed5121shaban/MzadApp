@@ -14,7 +14,7 @@ namespace FilterService.Consumer
             Mzad mzad = message.Adapt<Mzad>();
             if (!(mzad is null))
                 await mzad.SaveAsync();
-            else                 
+            else
                 Console.WriteLine("Empty Mzad returned.");
         }
     }
