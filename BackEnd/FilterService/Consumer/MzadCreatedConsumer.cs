@@ -12,10 +12,9 @@ namespace FilterService.Consumer
         {
             var message = context.Message;
             Mzad mzad = message.Adapt<Mzad>();
-            if (!(mzad is null))
-                await mzad.SaveAsync();
-            else
-                Console.WriteLine("Empty Mzad returned.");
+
+            if (mzad is null) throw new Exception("The Mzad Not Found");
+            await mzad.SaveAsync();
         }
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using MzadService.Application.Contracts;
 using MzadService.Application.Contracts.Mzad;
 using MzadService.Application.Services;
+using MzadService.Consumer;
 using MzadService.Data.DataSeeding;
 using MzadService.Infrastructure;
 
@@ -20,6 +21,8 @@ builder.Services.AddOpenApi();
 // MassTransit and RabbitMQ configuration
 builder.Services.AddMassTransit(x =>
 {
+    x.AddConsumersFromNamespaceContaining<CreatedMzadFualtConsumer>();
+    x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("mzad", false));
     x.AddEntityFrameworkOutbox<ApplicationDbContext>(opt =>
     {
         opt.QueryDelay = TimeSpan.FromSeconds(10);
