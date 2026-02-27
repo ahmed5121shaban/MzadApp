@@ -21,6 +21,11 @@ builder.Services.AddMassTransit(x =>
     x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("Filter",false));
     x.UsingRabbitMq((context, cfg) =>
     {
+        cfg.ReceiveEndpoint("filter-mzad-created", (m) =>
+        {
+            m.UseMessageRetry(x=> x.Interval(5,TimeSpan.FromSeconds(5)));
+            m.ConfigureConsumer<MzadCreatedConsumer>(context);
+        });
         cfg.ConfigureEndpoints(context);
     });
 });
