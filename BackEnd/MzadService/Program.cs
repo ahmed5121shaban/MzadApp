@@ -20,6 +20,12 @@ builder.Services.AddOpenApi();
 // MassTransit and RabbitMQ configuration
 builder.Services.AddMassTransit(x =>
 {
+    x.AddEntityFrameworkOutbox<ApplicationDbContext>(opt =>
+    {
+        opt.QueryDelay = TimeSpan.FromSeconds(10);
+        opt.UsePostgres();
+        opt.UseBusOutbox();
+    });
     x.UsingRabbitMq((context, cfg) =>
     {
         cfg.ConfigureEndpoints(context);
