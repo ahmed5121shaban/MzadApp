@@ -16,7 +16,6 @@ namespace Contracts.Mzads
         public DateTime UpdatedAt { get; set; }
         public DateTime MzadEnd { get; set; }
         public Status Status { get; set; }
-        public CreatedMzad Horse { get; set; }
     }
     public enum Status
     {
@@ -24,4 +23,5 @@ namespace Contracts.Mzads
         Finished,
         ReserveNotMet
     }
+
 }

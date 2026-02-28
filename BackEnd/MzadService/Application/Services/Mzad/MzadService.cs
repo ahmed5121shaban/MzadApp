@@ -30,7 +30,17 @@ namespace MzadService.Application.Services.Mzad
 
         public async Task Delete(Guid id)
         {
-            await _unitOfWork.Mzads.Delete(id);
+            try
+            {
+                await _unitOfWork.Mzads.Delete(id);
+                await _publishEndPoint.Publish<DeletedMzad>(new DeletedMzad { Id = id });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error deleting Mzad with id {id}: {ex.Message}");
+                throw ex;
+            }
+            
         }
 
         public async Task<IEnumerable<MzadDto>> GetAll()
@@ -56,6 +66,9 @@ namespace MzadService.Application.Services.Mzad
                 throw new Exception("Mzad not found");
 
             mzadDto.Adapt(mzad);
+            // Publish the UpdatedMzad event
+            await _publishEndPoint.Publish<UpdatedMzad>(mzad.Adapt<UpdatedMzad>());
+
             await _unitOfWork.Mzads.SaveChangesAsync();
 
             return mzadDto;

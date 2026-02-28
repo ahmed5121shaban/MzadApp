@@ -20,7 +20,6 @@ namespace MzadService.Consumer
                 UpdatedAt = DateTime.Now,
                 MzadEnd = DateTime.Now.AddDays(30),
                 Status = Status.ReserveNotMet,
-                Horse = null
             };
             await context.Publish<CreatedMzad>(mzad);
         }
