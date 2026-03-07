@@ -2,7 +2,7 @@
 
 namespace AuthService.Domain.Entities.Roles
 {
-    public class AppliationRole:IdentityRole
+    public class ApplicationRole:IdentityRole<Guid>
     {
     }
 }

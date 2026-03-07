@@ -2,7 +2,7 @@
 
 namespace AuthService.Domain.Entities.User
 {
-    public class ApplicationUser:IdentityUser
+    public class ApplicationUser:IdentityUser<Guid>
     {
     }
 }
