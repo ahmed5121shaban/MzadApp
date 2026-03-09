@@ -1,5 +1,6 @@
 ﻿using AuthService.Domain.Entities.User;
 using AuthService.Infrastracture.Persistence;
+using AuthService.Infrastracture.Persistence.Seeders;
 using MassTransit.Configuration;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
@@ -76,6 +77,17 @@ namespace AuthService.Core.Extensions
             })
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
+        }
+
+        /// <summary>
+        /// Configures the dependency injection container
+        /// </summary>
+        public static void DiContaonerConfig(this IServiceCollection services)
+        {
+            services.AddScoped<IDbSeeder, RoleSeeder>();
+            services.AddScoped<IDbSeeder, UserSeeder>();
+            services.AddScoped<IDbSeeder, AppClientsSeeder>();
+            services.AddScoped<DbSeederRunner>();
         }
     }
 }

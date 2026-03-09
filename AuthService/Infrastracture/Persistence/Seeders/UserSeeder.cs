@@ -1,6 +1,6 @@
 ﻿namespace AuthService.Infrastracture.Persistence.Seeders
 {
-    public class RoleSeeder : IDbSeeder
+    public class UserSeeder : IDbSeeder
     {
         public int Order => throw new NotImplementedException();
 
