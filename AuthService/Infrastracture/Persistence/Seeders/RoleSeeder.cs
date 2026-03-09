@@ -1,12 +1,22 @@
-﻿namespace AuthService.Infrastracture.Persistence.Seeders
+﻿using AuthService.Domain.Entities.Roles;
+
+namespace AuthService.Infrastracture.Persistence.Seeders
 {
     public class RoleSeeder : IDbSeeder
     {
-        public int Order => throw new NotImplementedException();
+        public int Order => 1;
 
-        public Task SeedAsync(ApplicationDbContext context, CancellationToken ct)
+        public async Task SeedAsync(ApplicationDbContext context, CancellationToken ct)
         {
-            throw new NotImplementedException();
+            if (context.Roles.Any())  return;
+
+            List<ApplicationRole> roles = new List<ApplicationRole>
+            {
+                new ApplicationRole { Name = "Admin", NormalizedName = "ADMIN" },
+                new ApplicationRole { Name = "User", NormalizedName = "USER" }
+            };
+
+            await context.Roles.AddRangeAsync(roles);
         }
     }
 }

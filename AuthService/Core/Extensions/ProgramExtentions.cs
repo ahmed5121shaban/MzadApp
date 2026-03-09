@@ -86,7 +86,6 @@ namespace AuthService.Core.Extensions
         {
             services.AddScoped<IDbSeeder, RoleSeeder>();
             services.AddScoped<IDbSeeder, UserSeeder>();
-            services.AddScoped<IDbSeeder, AppClientsSeeder>();
             services.AddScoped<DbSeederRunner>();
         }
     }

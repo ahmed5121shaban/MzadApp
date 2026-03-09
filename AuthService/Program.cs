@@ -45,6 +45,9 @@ app.UseAuthorization();
 app.MapControllers();
 
 if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
+{
     await SeedHelper.SeedAsync(app.Services);
+    await SeedHelper.SeedClientsAsync(app);
+}
 
 app.Run();
