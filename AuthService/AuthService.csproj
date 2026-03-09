@@ -27,7 +27,6 @@
     <Folder Include="Application\Command\" />
     <Folder Include="Application\Queries\" />
     <Folder Include="Application\Validators\" />
-    <Folder Include="Core\Extensions\" />
     <Folder Include="Core\Filters\" />
     <Folder Include="Core\Middleware\" />
     <Folder Include="Core\Controllers\" />

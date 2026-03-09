@@ -9,9 +9,8 @@ namespace AuthService.Infrastracture.Persistence
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole,Guid>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> applicationBuilder):base(applicationBuilder)
-        {
-            
-        }
+        {}
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

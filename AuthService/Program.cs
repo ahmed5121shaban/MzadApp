@@ -1,3 +1,4 @@
+using AuthService.Core.Extensions;
 using AuthService.Infrastracture.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,7 +13,16 @@ builder.Services.AddOpenApi();
 
 // DB configuration
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(connectionString));
+{
+    options.UseNpgsql(connectionString);
+    options.UseOpenIddict();
+});
+
+// Identity configuration
+builder.IdentityConfig(connectionString);
+
+// OpenIdDict configuration
+builder.OpenIdDictConfig();
 
 var app = builder.Build();
 
